@@ -2,17 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';//ファイル選択のため
 import 'dart:io';//ファイル選択のため
 import 'package:just_audio/just_audio.dart';//音楽再生のため
-import 'package:audio_session/audio_session.dart';//音楽再生のため
-
-/*------------------------------------------------------------------
-変数定義
- -------------------------------------------------------------------*/
+//変数定義
 late AudioPlayer _player;
 String strSePath = '';
-//
-/*------------------------------------------------------------------
-メイン処理
- -------------------------------------------------------------------*/
+//メイン処理
 void main() {
   runApp(const MyApp());
 }
@@ -73,9 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-  /*------------------------------------------------------------------
-音楽ファイル選択メソッド
- -------------------------------------------------------------------*/
+ //音楽ファイル選択メソッド
   void musicFileSelect() async {
     FilePickerResult? result;
     result = await FilePicker.platform.pickFiles(
@@ -88,22 +79,16 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
-/*------------------------------------------------------------------
-音楽ファイル再生メソッド
- -------------------------------------------------------------------*/
+//音楽ファイル再生メソッド
   void playMusic() async{
     _player = AudioPlayer();
-    final session = await AudioSession.instance;
-    await session.configure(const AudioSessionConfiguration.music());
     await _player.setLoopMode(LoopMode.all);
     if( strSePath != "") {
       await _player.setFilePath(strSePath);
     }
     await _player.play();
   }
-/*------------------------------------------------------------------
-音楽ファイル停止メソッド
- -------------------------------------------------------------------*/
+//音楽ファイル停止メソッド
   void stopMusic() async{
     _player.stop();
   }
